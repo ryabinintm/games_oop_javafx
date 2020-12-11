@@ -3,40 +3,45 @@ package ru.job4j.puzzle;
 public class Win {
 
     public static boolean check(int[][] board) {
-        boolean rsl = false;
-        rsl = horCheck(board) || verCheck(board);
-        return rsl;
+        /*============================= One line ===============================================================
+        return diagonal(board) != 1 && (horCheck(board, diagonal(board)) || verCheck(board, diagonal(board)));
+        ======================================================================================================*/
+        var crossCell = diagonal(board);
+        if (crossCell != -1) {
+            return horCheck(board, crossCell) || verCheck(board, crossCell);
+        }
+        return false;
     }
 
-    public static boolean horCheck(int[][] board) {
-        boolean rsl = false;
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                if (board[i][j] == 0) {
-                    break;
-                }
-                if (j == board.length - 1) {
-                    rsl = true;
-                    return rsl;
-                }
+    private static int diagonal(int[][] board) {
+        var index = -1;
+        while (++index < board.length) {
+            if (board[index][index] != 0) {
+                return index;
             }
         }
-        return rsl;
+        return -1;
     }
 
-    public static boolean verCheck(int[][] board) {
-        boolean rsl = false;
+    public static boolean horCheck(int[][] board, int cell) {
+        var result = true;
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                if (board[j][i] == 0) {  // долго думал, чтобы индексы
-                    break;               // поменять местами
-                }
-                if (j == board.length - 1) {
-                    rsl = true;
-                    return rsl;
-                }
+            if (board[cell][i] == 0) {
+                result = false;
+                break;
             }
         }
-        return rsl;
+        return result;
+    }
+
+    public static boolean verCheck(int[][] board, int cell) {
+        var result = true;
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][cell] == 0) {
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 }
