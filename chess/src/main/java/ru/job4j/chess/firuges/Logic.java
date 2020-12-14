@@ -1,19 +1,15 @@
-package ru.job4j.chess;
+package ru.job4j.chess.firuges;
 
-import ru.job4j.chess.firuges.Cell;
-import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.white.OccupiedCellException;
+
 import java.util.Arrays;
 
-public final class Logic {
+public class Logic {
     private final Figure[] figures = new Figure[32];
     private int index = 0;
 
     public void add(Figure figure) {
         figures[index++] = figure;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public void move(Cell source, Cell dest)
@@ -26,9 +22,11 @@ public final class Logic {
 
     private boolean free(Cell[] steps) throws OccupiedCellException {
         for (Figure fig : figures) {
-            for(Cell cell : steps) {
-                if (fig.position().getX() == cell.getX() && fig.position().getY() == cell.getY()) {
-                    throw new OccupiedCellException();
+            if (fig != null) {
+                for(Cell cell : steps) {
+                    if (fig.position().equals(cell)) {
+                        throw new OccupiedCellException();
+                    }
                 }
             }
         }
