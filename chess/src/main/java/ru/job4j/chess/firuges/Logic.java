@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges;
 
+import ru.job4j.chess.firuges.black.ImpossibleMoveException;
 import ru.job4j.chess.firuges.white.OccupiedCellException;
 
 import java.util.Arrays;

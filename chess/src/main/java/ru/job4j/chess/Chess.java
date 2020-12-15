@@ -17,6 +17,7 @@ import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.Logic;
 import ru.job4j.chess.firuges.black.*;
+import ru.job4j.chess.firuges.black.ImpossibleMoveException;
 import ru.job4j.chess.firuges.white.*;
 
 public final class Chess extends Application {
@@ -68,7 +69,7 @@ public final class Chess extends Application {
                                 findBy(event.getX(), event.getY()));
                         rect.setX(((int) event.getX() / 40) * 40 + 5);
                         rect.setY(((int) event.getY() / 40) * 40 + 5);
-                    } catch (Exception e) {
+                    } catch (Exception | ImpossibleMoveException e) {
                         Alert info = new Alert(Alert.AlertType.ERROR);
                         info.setContentText(e.getClass().getName() +  " "  + e.getMessage());
                         info.show();
